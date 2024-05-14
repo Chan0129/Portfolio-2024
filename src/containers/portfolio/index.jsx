@@ -32,7 +32,6 @@ const portfolioData = [
     id: 2,
     name: "Todo App",
     image: ImageFour,
-
     link: "",
   },
   {
@@ -50,7 +49,7 @@ const filterData = [
   },
   {
     filterId: 2,
-    label: "Developement",
+    label: "Development",
   },
   {
     filterId: 3,
@@ -70,16 +69,10 @@ const Portfolio = () => {
     setHoveredValue(index);
   }
 
-  console.log("====================================");
-  console.log(hoveredValue);
-  console.log("====================================");
-
   const filteredItems =
     filteredvalue === 1
       ? portfolioData
       : portfolioData.filter((item) => item.id === filteredvalue);
-
-  console.log(filteredItems);
 
   return (
     <section id="portfolio" className="portfolio">
@@ -108,15 +101,21 @@ const Portfolio = () => {
               onMouseLeave={() => handleHover(null)}
             >
               <div className="portfolio__content__cards__item__img-wrapper">
-                <a>
-                  <img alt="dummy data" src={item.image} />
-                </a>
+                {item.link ? (
+                  <a href={item.link}>
+                    <img alt={item.name} src={item.image} />
+                  </a>
+                ) : (
+                  <button className="link-button" disabled>
+                    <img alt={item.name} src={item.image} />
+                  </button>
+                )}
               </div>
               <div className="overlay">
                 {index === hoveredValue && (
                   <div>
                     <p>{item.name}</p>
-                    <button>Visit</button>
+                    <button disabled={!item.link}>Visit</button>
                   </div>
                 )}
               </div>
@@ -127,4 +126,5 @@ const Portfolio = () => {
     </section>
   );
 };
+
 export default Portfolio;
